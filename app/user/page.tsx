@@ -11,8 +11,14 @@
  /user?sortOrder=name
 
  加上searchParams属性即可获取。*/
+
+
+
+/** 在/users/page.tsx里，我们用Suspense将 UsersTable包起来，表示UsersTable数据未获得前用加载UI展示。*/
 import React from "react";
+import {Suspense} from "react";
 import UsersTable from "@/app/user/UsersTable";
+import Link from "next/link";
 
 interface Props{
     searchParams:{sortOrder:string}
@@ -21,7 +27,10 @@ const UsersPage=({searchParams:{sortOrder}}: Props ) => {
     return(
         <div>
             <h1>Hello World</h1>
+            <Link href="/user/new" className="btn">New User</Link>
+            <Suspense fallback={<p>加载中...</p>}>
             <UsersTable sortOrder={sortOrder}/>
+            </Suspense>
         </div>
     )
 }
